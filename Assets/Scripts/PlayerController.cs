@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         // movement direction on user input 
         if(controller.isGrounded == true && controller != null) 
         {
-            // if jumping was true preiously 
+            // if jumping was true previously 
             if (jumping == true)
             {
                 jumping = false;
@@ -45,6 +45,16 @@ public class PlayerController : MonoBehaviour
             float x = Input.GetAxisRaw("Horizontal"); //Raw instant to 0 or -1 
             anim.SetFloat("Speed", Mathf.Abs(x)); // assign value h and set speed anim // get absolute value 
             direction = new Vector3(0, 0, x) * speed;
+
+            // flip character face direction 
+            // transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 180f, 0); // immutable declaration 
+            // if direction x is geater than 0 
+            if(x != 0)
+            {
+                Vector3 facingDirection = transform.localEulerAngles;
+                facingDirection.y = direction.z > 0 ? 0 : 180;
+                transform.localEulerAngles = facingDirection;
+            }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
