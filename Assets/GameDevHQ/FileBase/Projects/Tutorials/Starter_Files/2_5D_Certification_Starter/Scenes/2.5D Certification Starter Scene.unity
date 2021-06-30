@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: d8324359b0f55440ab23f9cf4dabdb33, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8324359b0f55440ab23f9cf4dabdb33, type: 3}
 --- !u!1 &226525202
@@ -236,8 +240,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 26.75
-  m_Range: 0.09
+  m_Intensity: 186
+  m_Range: 5.39
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -278,7 +282,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -583,8 +587,9 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 80404171}
+  - {fileID: 2120877329}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &800508502
 MonoBehaviour:
@@ -598,9 +603,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d417de8d7e7a9e4a95e807c2267bb18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 9
+  speed: 3
   gravity: 30
-  jumpHeight: 12
+  jumpHeight: 10
+  anim: {fileID: 1467104025}
 --- !u!143 &800508503
 CharacterController:
   m_ObjectHideFlags: 0
@@ -633,7 +639,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 90
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!1 &884507289
 GameObject:
@@ -678,8 +684,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0, g: 0.903517, b: 1, a: 1}
-  m_Intensity: 30.21
-  m_Range: 39.46
+  m_Intensity: 32.5
+  m_Range: 10.79
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -861,7 +867,7 @@ Transform:
   - {fileID: 518167641}
   - {fileID: 2060823341}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1299898984
 GameObject:
@@ -896,11 +902,16 @@ Transform:
   - {fileID: 289086227097985536}
   - {fileID: 1216695344}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1339954282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400072, guid: d8324359b0f55440ab23f9cf4dabdb33, type: 3}
+  m_PrefabInstance: {fileID: 135654211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1467104025 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: d8324359b0f55440ab23f9cf4dabdb33, type: 3}
   m_PrefabInstance: {fileID: 135654211}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1790893115
@@ -1132,8 +1143,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 26.75
-  m_Range: 0.09
+  m_Intensity: 186
+  m_Range: 5.39
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1174,7 +1185,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -1539,11 +1550,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120877326}
   m_LocalRotation: {x: 0.041770563, y: -0.71634626, z: 0.043020494, w: 0.69516367}
-  m_LocalPosition: {x: 14.5, y: 77.9, z: 100.11}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7.36, y: 0.30000052, z: -0.23855591}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 800508501}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2120877330
 MonoBehaviour:

@@ -15,10 +15,14 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     [SerializeField]
     private float jumpHeight = 10;
+    [SerializeField]
+    private Animator anim;
+    private bool jumping; 
 
     private void Start()
     {
-        controller = GetComponent<CharacterController>(); 
+        controller = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>(); 
         if(controller == null)
         {
             return; 
@@ -31,12 +35,22 @@ public class PlayerController : MonoBehaviour
         // movement direction on user input 
         if(controller.isGrounded == true && controller != null) 
         {
-            float x = Input.GetAxisRaw("Horizontal");
+            // if jumping was true preiously 
+            if (jumping == true)
+            {
+                jumping = false;
+                anim.SetBool("IsJump", jumping);
+            }
+
+            float x = Input.GetAxisRaw("Horizontal"); //Raw instant to 0 or -1 
+            anim.SetFloat("Speed", Mathf.Abs(x)); // assign value h and set speed anim // get absolute value 
             direction = new Vector3(0, 0, x) * speed;
 
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                direction.y += jumpHeight; 
+                direction.y += jumpHeight;
+                jumping = true; 
+                anim.SetBool("IsJump", jumping); // set value based off of bool jumping 
             }
         }
 
