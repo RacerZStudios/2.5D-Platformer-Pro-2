@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private float jumpHeight = 10;
     [SerializeField]
     private Animator anim;
-    private bool jumping; 
+    private bool jumping;
+    private bool onLedge; 
 
     private void Start()
     {
@@ -31,9 +32,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        CalculateMovement(); 
+
+        if(onLedge == true)
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                anim.SetTrigger("IsClimbUp"); 
+            }
+        }
+    }
+
+    private void CalculateMovement()
+    {
         // if grounded = true 
         // movement direction on user input 
-        if(controller.isGrounded == true && controller != null) 
+        if (controller.isGrounded == true && controller != null)
         {
             // if jumping was true previously 
             if (jumping == true)
@@ -49,7 +63,7 @@ public class PlayerController : MonoBehaviour
             // flip character face direction 
             // transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 180f, 0); // immutable declaration 
             // if direction x is geater than 0 
-            if(x != 0)
+            if (x != 0)
             {
                 Vector3 facingDirection = transform.localEulerAngles;
                 facingDirection.y = direction.z > 0 ? 0 : 180;
@@ -59,20 +73,30 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 direction.y += jumpHeight;
-                jumping = true; 
+                jumping = true;
                 anim.SetBool("IsJump", jumping); // set value based off of bool jumping 
             }
         }
 
         // get gravity for above method to work 
         // calculate gravity for character controller 
-        direction.y -= gravity * Time.deltaTime; 
+        direction.y -= gravity * Time.deltaTime;
 
         // if jump 
         // adjust jumpheight
 
         // move with speed and time step 
-        controller.Move(direction * speed * Time.deltaTime); 
+        controller.Move(direction * speed * Time.deltaTime);
+    }
 
+    public void GrabLedge(Vector3 handPos)
+    {
+        controller.enabled = false;
+        anim.SetBool("GrabLedge", true);
+        anim.SetFloat("Speed", 0);
+        anim.SetBool("IsJump", false); 
+        Debug.Log("Freeze");
+        onLedge = true; 
+        transform.position = handPos; 
     }
 }
