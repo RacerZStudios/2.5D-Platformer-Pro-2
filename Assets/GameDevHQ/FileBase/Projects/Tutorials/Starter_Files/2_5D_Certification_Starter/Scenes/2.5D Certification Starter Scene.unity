@@ -280,6 +280,10 @@ PrefabInstance:
       propertyPath: m_CullingMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3614532942679015199, guid: 183226e524d7c734f9a00a9c48e882ae, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3614532943166810980, guid: 183226e524d7c734f9a00a9c48e882ae, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -302,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3614532943166810985, guid: 183226e524d7c734f9a00a9c48e882ae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 97.45
+      value: 92.07
       objectReference: {fileID: 0}
     - target: {fileID: 3614532943166810985, guid: 183226e524d7c734f9a00a9c48e882ae, type: 3}
       propertyPath: m_LocalRotation.w
@@ -331,6 +335,10 @@ PrefabInstance:
     - target: {fileID: 3614532943166810985, guid: 183226e524d7c734f9a00a9c48e882ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614532943166810986, guid: 183226e524d7c734f9a00a9c48e882ae, type: 3}
+      propertyPath: slideDir.z
+      value: 113.4
       objectReference: {fileID: 0}
     - target: {fileID: 3614532943166810987, guid: 183226e524d7c734f9a00a9c48e882ae, type: 3}
       propertyPath: m_SlopeLimit

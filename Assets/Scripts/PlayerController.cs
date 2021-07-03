@@ -19,7 +19,10 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private bool jumping;
     private bool onLedge;
-    private Ledge activeLedge; 
+    private Ledge activeLedge;
+    private bool rolling;
+    [SerializeField]
+    private Vector3 slideDir; 
 
     private void Start()
     {
@@ -57,6 +60,12 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("IsJump", jumping);
             }
 
+            if(rolling == true)
+            {
+                rolling = false;
+                anim.SetBool("IsRoll", rolling); 
+            }
+
             float x = Input.GetAxisRaw("Horizontal"); //Raw instant to 0 or -1 
             anim.SetFloat("Speed", Mathf.Abs(x)); // assign value h and set speed anim // get absolute value 
             direction = new Vector3(0, 0, x) * speed;
@@ -77,6 +86,13 @@ public class PlayerController : MonoBehaviour
                 jumping = true;
                 anim.SetBool("IsJump", jumping); // set value based off of bool jumping 
             }
+
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                rolling = true;
+                anim.SetBool("IsRoll", rolling);
+                Roll(slideDir); 
+            }
         }
 
         // get gravity for above method to work 
@@ -88,6 +104,12 @@ public class PlayerController : MonoBehaviour
 
         // move with speed and time step 
         controller.Move(direction * speed * Time.deltaTime);
+    }
+
+    public void Roll(Vector3 slideDir)
+    {
+        Debug.Log("Rolling" + slideDir);
+       // transform.position = new Vector3(0,0, slideDir.z); 
     }
 
     public void GrabLedge(Vector3 handPos, Ledge currentLedge)
