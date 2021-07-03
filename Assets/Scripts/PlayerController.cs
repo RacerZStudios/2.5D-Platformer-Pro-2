@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator anim;
     private bool jumping;
-    private bool onLedge; 
+    private bool onLedge;
+    private Ledge activeLedge; 
 
     private void Start()
     {
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
         controller.Move(direction * speed * Time.deltaTime);
     }
 
-    public void GrabLedge(Vector3 handPos)
+    public void GrabLedge(Vector3 handPos, Ledge currentLedge)
     {
         controller.enabled = false;
         anim.SetBool("GrabLedge", true);
@@ -97,6 +98,15 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("IsJump", false); 
         Debug.Log("Freeze");
         onLedge = true; 
-        transform.position = handPos; 
+        transform.position = handPos;
+        activeLedge = currentLedge; 
+    }
+
+    public void ClimbComplete()
+    {
+        Debug.Log("Climb Up Complete"); 
+        transform.position = activeLedge.GetStandPos();
+        anim.SetBool("GrabLedge", false);
+        controller.enabled = true; 
     }
 }

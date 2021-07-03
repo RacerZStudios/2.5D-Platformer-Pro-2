@@ -16,8 +16,13 @@ public class Ledge : MonoBehaviour
 
             if(player != null)
             {
-                player.GrabLedge(handPos); 
+                player.GrabLedge(handPos, this); 
             }
         }
+    }
+
+    public Vector3 GetStandPos()
+    {
+        return standPos; 
     }
 }
