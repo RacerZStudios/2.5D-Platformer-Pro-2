@@ -87,11 +87,19 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("IsJump", jumping); // set value based off of bool jumping 
             }
 
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if(x != 0)
             {
-                rolling = true;
-                anim.SetBool("IsRoll", rolling);
-                Roll(slideDir); 
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    rolling = true;
+                    anim.SetBool("IsRoll", rolling);
+                    Roll();
+                }
+                else if (!Input.GetKey(KeyCode.LeftShift))
+                {
+                    rolling = false;
+                    anim.SetBool("IsRoll", rolling);
+                }
             }
         }
 
@@ -106,10 +114,13 @@ public class PlayerController : MonoBehaviour
         controller.Move(direction * speed * Time.deltaTime);
     }
 
-    public void Roll(Vector3 slideDir)
+    public void Roll()
     {
         Debug.Log("Rolling" + slideDir);
-       // transform.position = new Vector3(0,0, slideDir.z); 
+        transform.position = slideDir;
+        slideDir += controller.velocity;
+        rolling = false; 
+        anim.SetFloat("Speed", 1);
     }
 
     public void GrabLedge(Vector3 handPos, Ledge currentLedge)
