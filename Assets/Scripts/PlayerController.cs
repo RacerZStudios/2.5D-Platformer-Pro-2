@@ -149,16 +149,17 @@ public class PlayerController : MonoBehaviour
         // adjust jumpheight
 
         // move with speed and time step 
-        if(controller != null)
+        if(controller != isActiveAndEnabled)
         {
-            controller.Move(direction * speed * Time.deltaTime);
             return; 
         }
+
+        controller.Move(direction * speed * Time.deltaTime);
     }
 
     public void Roll()
     {
-        Debug.Log("Rolling" + slideDir);
+       // Debug.Log("Rolling" + slideDir);
         transform.position = slideDir;
         slideDir += controller.velocity;
         rolling = false; 
@@ -220,7 +221,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag == "ClimbEnd")
         {
-            Debug.Log("ClimbEnd");
+           // Debug.Log("ClimbEnd");
             gameObject.transform.position = Vector3.Lerp(transform.position, playerPos.position, 0.1f);
             // Destroy(gameObject); // test 
         }

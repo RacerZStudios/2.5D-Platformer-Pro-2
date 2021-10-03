@@ -9,6 +9,9 @@ TagManager:
   - ClimbTrigger
   - ClimbObj
   - ClimbEnd
+  - LiftUp
+  - LiftDown
+  - LiftC
   layers:
   - Default
   - TransparentFX
