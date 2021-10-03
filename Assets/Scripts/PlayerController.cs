@@ -22,20 +22,44 @@ public class PlayerController : MonoBehaviour
     private Ledge activeLedge;
     private bool rolling;
     [SerializeField]
-    private Vector3 slideDir; 
+    private Vector3 slideDir;
+    [SerializeField]
+    private Vector3 climbStartDir;
+    [SerializeField]
+    private Vector3 climbEndDir;
+    [SerializeField]
+    private Transform climbAPos;
+    [SerializeField]
+    private Transform climbBPos; 
+    private float min = -1f;
+    private float max = 1f;
+    private float t = 0f; 
+    private bool onLadder;
+    private ClimbCommand climbPos;
+    [SerializeField]
+    private Transform playerPos; 
 
     private void Start()
     {
+        climbPos = GetComponentInChildren<ClimbCommand>(); 
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>(); 
         if(controller == null)
         {
             return; 
         }
+        if (climbPos == null)
+        {
+            return;
+        }
     }
 
     private void Update()
     {
+
+        climbStartDir = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        climbEndDir = new Vector3(transform.position.x, 5f, transform.position.z);
+
         CalculateMovement(); 
 
         if(onLedge == true)
@@ -43,6 +67,20 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 anim.SetTrigger("IsClimbUp"); 
+            }
+        }
+
+        if(onLadder == true)
+        {
+            if(Input.GetKey(KeyCode.W))
+            {
+                anim.SetBool("ClimbUp", true);
+
+                transform.position = Vector3.MoveTowards(transform.position, climbBPos.position, speed * 75 * Time.deltaTime);
+
+                // transform.position = climbBPos.transform.position - climbAPos.transform.position;
+                // transform.position = new Vector3(Mathf.Lerp(climbStartDir.y, climbEndDir.y, 0.1f), 1, 0);
+                transform.position += Vector3.up * Time.deltaTime * speed * 75;
             }
         }
     }
@@ -111,7 +149,11 @@ public class PlayerController : MonoBehaviour
         // adjust jumpheight
 
         // move with speed and time step 
-        controller.Move(direction * speed * Time.deltaTime);
+        if(controller != null)
+        {
+            controller.Move(direction * speed * Time.deltaTime);
+            return; 
+        }
     }
 
     public void Roll()
@@ -129,7 +171,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("GrabLedge", true);
         anim.SetFloat("Speed", 0);
         anim.SetBool("IsJump", false); 
-        Debug.Log("Freeze");
+       // Debug.Log("Freeze");
         onLedge = true; 
         transform.position = handPos;
         activeLedge = currentLedge; 
@@ -137,9 +179,60 @@ public class PlayerController : MonoBehaviour
 
     public void ClimbComplete()
     {
-        Debug.Log("Climb Up Complete"); 
+        // Debug.Log("Ledge Complete"); 
+        onLedge = false;
         transform.position = activeLedge.GetStandPos();
         anim.SetBool("GrabLedge", false);
         controller.enabled = true; 
+    }
+
+    public void ClimbLadder(Vector3 startClimbPos, ClimbCommand currentClimbPos)
+    {
+        controller.enabled = false;
+        anim.SetBool("ClimbUp", true);
+        anim.SetFloat("Speed", 1);
+        anim.SetBool("IsJump", false);
+        // Debug.Log("Freeze");
+        if(this != null)
+        {
+            onLadder = true;
+            transform.position = startClimbPos;
+            climbPos = currentClimbPos;
+        }
+    }
+
+    public void ClimbUpComplete()
+    {
+        transform.position = climbPos.GetClimbPos(); 
+        anim.SetTrigger("IsClimbUp");
+        onLadder= false; 
+        controller.enabled = true;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "ClimbStart" || other.gameObject.tag == "ClimbObj")
+        {
+            climbPos.StartCoroutine(climbPos.LerpPos(climbStartDir, 3)); 
+            onLadder = true;
+            anim.SetBool("ClimbUp", true);
+        }
+
+        if (other.gameObject.tag == "ClimbEnd")
+        {
+            Debug.Log("ClimbEnd");
+            gameObject.transform.position = Vector3.Lerp(transform.position, playerPos.position, 0.1f);
+            // Destroy(gameObject); // test 
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "ClimbEnd" || other.gameObject.tag == "ClimbObj")
+        {
+            onLadder = false;
+            anim.SetBool("ClimbUp", false);
+            gameObject.transform.position = playerPos.position;
+        }
     }
 }
