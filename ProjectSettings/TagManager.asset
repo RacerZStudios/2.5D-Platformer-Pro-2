@@ -12,6 +12,7 @@ TagManager:
   - LiftUp
   - LiftDown
   - LiftC
+  - KillZ
   layers:
   - Default
   - TransparentFX

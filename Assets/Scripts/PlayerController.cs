@@ -37,10 +37,21 @@ public class PlayerController : MonoBehaviour
     private bool onLadder;
     private ClimbCommand climbPos;
     [SerializeField]
-    private Transform playerPos; 
+    private Transform playerPos;
+
+    [SerializeField]
+    private Vector3 playerStartPos;
+    [SerializeField]
+    private Transform playerResetPos;
+    [SerializeField]
+    private bool resetPlayer;
+    [SerializeField]
+    private GameObject player; 
 
     private void Start()
     {
+        player.transform.position = playerResetPos.transform.position; 
+
         climbPos = GetComponentInChildren<ClimbCommand>(); 
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>(); 
@@ -56,6 +67,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKey(KeyCode.R))
+        {
+            anim.Rebind();
+        }
 
         climbStartDir = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         climbEndDir = new Vector3(transform.position.x, 5f, transform.position.z);

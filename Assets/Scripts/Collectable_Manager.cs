@@ -21,4 +21,12 @@ public class Collectable_Manager : MonoBehaviour
         dispScore += score;
         collectText.text = "Collectable: " + dispScore; 
     }
+
+    private void Update()
+    {
+        if(dispScore >= 5)
+        {
+            Debug.Log("All Collectables Obtained"); 
+        }
+    }
 }
