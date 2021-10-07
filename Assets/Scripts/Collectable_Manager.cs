@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public class Collectable_Manager : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class Collectable_Manager : MonoBehaviour
     {
         if(dispScore >= 5)
         {
-            Debug.Log("All Collectables Obtained"); 
+            SceneManager.LoadSceneAsync(2); 
         }
     }
 }

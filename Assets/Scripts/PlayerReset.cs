@@ -19,7 +19,7 @@ public class PlayerReset : MonoBehaviour
         if(other.CompareTag("KillZ"))
         {
             // calls
-            Debug.Log("Reset");
+           // Debug.Log("Reset");
             controller = GetComponent<CharacterController>(); 
             // doesn't call ?
             PlayerReset player = GetComponent<PlayerReset>(); 

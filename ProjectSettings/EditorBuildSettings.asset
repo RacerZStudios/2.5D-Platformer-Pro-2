@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 2720824dc2a1e6942943494ff65c58bc
+  - enabled: 1
+    path: Assets/GameDevHQ/FileBase/Projects/Tutorials/Starter_Files/2_5D_Certification_Starter/Scenes/2.5D
+      Certification Starter Scene.unity
+    guid: ce6296a2b417948448b7c10c88c087cc
+  - enabled: 1
+    path: Assets/Scenes/WinTeleportScene.unity
+    guid: 162d5c955fd7e114c94361e425a1a8b6
   m_configObjects: {}

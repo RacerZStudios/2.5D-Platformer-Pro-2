@@ -13,7 +13,7 @@ public class KillZ : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Detected");
+          //  Debug.Log("Player Detected");
             player.transform.position = new Vector3(0, 100, 0);
         }
     }
