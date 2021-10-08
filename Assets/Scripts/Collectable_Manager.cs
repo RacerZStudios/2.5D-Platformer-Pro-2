@@ -10,6 +10,10 @@ public class Collectable_Manager : MonoBehaviour
     private TMP_Text collectText;
     [SerializeField]
     private int dispScore;
+    [SerializeField]
+    private GameObject winTeleprefab;
+    [SerializeField]
+    private Transform winteleTransformPos; 
 
     public bool Collected()
     {
@@ -20,14 +24,21 @@ public class Collectable_Manager : MonoBehaviour
     public void GetCollected(int score)
     {
         dispScore += score;
-        collectText.text = "Collectable: " + dispScore; 
+        collectText.text = "Collectable: " + dispScore;
+
+        if (dispScore >= 5)
+        {
+            IsWinMet(true);
+        }
     }
 
-    private void Update()
+    private bool IsWinMet(bool met)
     {
-        if(dispScore >= 5)
+        if (winTeleprefab != null)
         {
-            SceneManager.LoadSceneAsync(2); 
+            Instantiate(winTeleprefab, winteleTransformPos.position, Quaternion.identity);
+            return met;  
         }
+        return false; 
     }
 }

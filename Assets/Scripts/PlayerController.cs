@@ -164,12 +164,15 @@ public class PlayerController : MonoBehaviour
         // adjust jumpheight
 
         // move with speed and time step 
-        if(controller != isActiveAndEnabled)
+      
+        if(controller.enabled == true)
         {
-            return; 
+            controller.Move(direction * speed * Time.deltaTime);
         }
-
-        controller.Move(direction * speed * Time.deltaTime);
+        if (controller != isActiveAndEnabled)
+        {
+            return;
+        }
     }
 
     public void Roll()
