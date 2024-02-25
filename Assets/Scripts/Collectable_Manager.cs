@@ -26,7 +26,7 @@ public class Collectable_Manager : MonoBehaviour
         dispScore += score;
         collectText.text = "Collectable: " + dispScore;
 
-        if (dispScore >= 5)
+        if (dispScore > 5 || dispScore == 6)
         {
             IsWinMet(true);
         }
